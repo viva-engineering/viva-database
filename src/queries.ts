@@ -1,7 +1,12 @@
 
 import { db } from './index';
-import { WriteQuery as BaseWriteQuery, WriteQueryResult, SelectQuery as BaseSelectQuery, SelectQueryResult } from '@viva-eng/database';
-import { MysqlError, raw, format, PoolConnection } from 'mysql';
+import { PoolConnection } from 'mysql';
+import {
+	WriteQuery as BaseWriteQuery,
+	WriteQueryResult,
+	SelectQuery as BaseSelectQuery,
+	SelectQueryResult
+} from '@viva-eng/database';
 
 export abstract class WriteQuery<P> extends BaseWriteQuery<P> {
 	protected readonly prepared: string;
