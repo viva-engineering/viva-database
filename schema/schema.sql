@@ -3,6 +3,47 @@ create database viva;
 
 use viva;
 
+-- Reference table containing all possible privacy setting combinations
+-- Each user will reference one of these setting combinations
+-- (2 ** 4) * (3 ** 6) = 11664 records
+create table user_privacy_settings (
+  id int unsigned primary key not null auto_increment,
+
+  -- Discoverability values: control how a user can be found by other users
+  --  0 = Private, not discoverable by this value
+  --  1 = Public, user can be discovered by searching for this value
+  discoverable_by_email tinyint(1) not null,
+  discoverable_by_phone tinyint(1) not null,
+  discoverable_by_name tinyint(1) not null,
+  discoverable_by_friend_code tinyint(1) not null,
+
+  -- Privacy values: control what a user can see once they view the user's profile
+  --  0 = Private, visible only to the user
+  --  1 = Friends, visible only to the user and their friends
+  --  2 = Public, visible to anyone who can see their profile
+  email_privacy tinyint(1) not null,
+  phone_privacy tinyint(1) not null,
+  location_privacy tinyint(1) not null,
+  birthday_privacy tinyint(1) not null,
+  default_post_privacy tinyint(1) not null,
+  default_image_privacy tinyint(1) not null,
+
+  -- Record metadata
+  created_timestamp timestamp not null default now(),
+  updated_timestamp timestamp not null default now() on update now(),
+
+  -- Index including all values, used when looking up a privacy profile to assign to a user
+  unique key idx_user_privacy_settings_full (
+    discoverable_by_email, discoverable_by_phone, discoverable_by_name, discoverable_by_friend_code,
+    email_privacy, phone_privacy, location_privacy, birthday_privacy,
+    default_post_privacy, default_image_privacy
+  )
+)
+engine=InnoDB,
+charset=utf8mb4;
+
+
+
 -- 
 -- Primary user table
 -- Contains all users in the system and their basic user data
@@ -18,12 +59,8 @@ create table users (
   location varchar(255) default null,
   birthday date default null,
 
-  -- Searchability controls
+  -- User's uniquely generated friend code
   friend_code varchar(255) unique not null,
-  discoverable_by_email tinyint(1) not null default 0,
-  discoverable_by_name tinyint(1) not null default 0,
-  discoverable_by_phone tinyint(1) not null default 0,
-  discoverable_by_friend_code tinyint(1) not null default 1,
 
   -- Status fields
   active tinyint(1) not null default 1,
@@ -37,15 +74,22 @@ create table users (
   is_admin tinyint(1) not null default 0,
   is_moderator tinyint(1) not null default 0,
 
+  -- User's privacy settings configuration
+  privacy_settings_id int unsigned not null,
+
   -- Record metadata
   created_timestamp timestamp not null default now(),
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
   primary key (id),
-  index idx_users_email (email, discoverable_by_email),
-  index idx_users_name (name, discoverable_by_name),
-  index idx_users_friend_code (friend_code, discoverable_by_friend_code)
+  index idx_users_email (email),
+  index idx_users_name (name),
+  index idx_users_friend_code (friend_code),
+
+  -- Foreign Keys
+  constraint fk_user_privacy_settings_id
+    foreign key (privacy_settings_id) references user_privacy_settings (id)
 )
 engine=InnoDB,
 charset=utf8mb4;
@@ -296,3 +340,43 @@ create table post_comments (
 engine=InnoDB,
 charset=utf8mb4;
 
+
+
+-- 
+-- Generates all the possible combinations of privacy settings to populate the table
+-- 
+
+insert into user_privacy_settings
+(
+  discoverable_by_email,
+  discoverable_by_phone,
+  discoverable_by_name,
+  discoverable_by_friend_code,
+  email_privacy,
+  phone_privacy,
+  location_privacy,
+  birthday_privacy,
+  default_post_privacy,
+  default_image_privacy
+)
+select
+  discoverable_by_email.i,
+  discoverable_by_phone.i,
+  discoverable_by_name.i,
+  discoverable_by_friend_code.i,
+  email_privacy.i,
+  phone_privacy.i,
+  location_privacy.i,
+  birthday_privacy.i,
+  default_post_privacy.i,
+  default_image_privacy.i
+from       (select 0 as i union select 1 as i)                     discoverable_by_email
+cross join (select 0 as i union select 1 as i)                     discoverable_by_phone
+cross join (select 0 as i union select 1 as i)                     discoverable_by_name
+cross join (select 0 as i union select 1 as i)                     discoverable_by_friend_code
+cross join (select 0 as i union select 1 as i union select 2 as i) email_privacy
+cross join (select 0 as i union select 1 as i union select 2 as i) phone_privacy
+cross join (select 0 as i union select 1 as i union select 2 as i) location_privacy
+cross join (select 0 as i union select 1 as i union select 2 as i) birthday_privacy
+cross join (select 0 as i union select 1 as i union select 2 as i) default_post_privacy
+cross join (select 0 as i union select 1 as i union select 2 as i) default_image_privacy;
