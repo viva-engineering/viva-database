@@ -8,6 +8,8 @@ import { privacySettingsTable } from './tables/privacy-settings';
 
 export { SelectQuery, WriteQuery } from './queries';
 
+export { Bit, PrivacyFlag } from './types';
+
 export const tables = {
 	credentials: credentialsTable,
 	friends: friendsTable,
