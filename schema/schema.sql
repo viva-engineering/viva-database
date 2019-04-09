@@ -5,7 +5,7 @@ use viva;
 
 -- Reference table containing all possible privacy setting combinations
 -- Each user will reference one of these setting combinations
--- (2 ** 4) * (3 ** 6) = 11664 records
+-- (2 ** 3) * (3 ** 6) = 5833 records
 create table user_privacy_settings (
   id int unsigned primary key not null auto_increment,
 
@@ -15,7 +15,6 @@ create table user_privacy_settings (
   discoverable_by_email tinyint(1) not null,
   discoverable_by_phone tinyint(1) not null,
   discoverable_by_name tinyint(1) not null,
-  discoverable_by_friend_code tinyint(1) not null,
 
   -- Privacy values: control what a user can see once they view the user's profile
   --  0 = Private, visible only to the user
@@ -34,7 +33,7 @@ create table user_privacy_settings (
 
   -- Index including all values, used when looking up a privacy profile to assign to a user
   unique key idx_user_privacy_settings_full (
-    discoverable_by_email, discoverable_by_phone, discoverable_by_name, discoverable_by_friend_code,
+    discoverable_by_email, discoverable_by_phone, discoverable_by_name,
     email_privacy, phone_privacy, location_privacy, birthday_privacy,
     default_post_privacy, default_image_privacy
   )
@@ -59,8 +58,10 @@ create table users (
   location varchar(255) default null,
   birthday date default null,
 
-  -- User's uniquely generated friend code
-  friend_code varchar(255) unique not null,
+  -- Randomly generated user code used for looking up the user's profile from outside
+  -- the service layer. Anyone who has this code can find this user's profile (although
+  -- they may not be able to see much beyond that depending on other settings)
+  user_code varchar(255) unique not null collate utf8mb4_bin,
 
   -- Status fields
   active tinyint(1) not null default 1,
@@ -85,7 +86,8 @@ create table users (
   primary key (id),
   index idx_users_email (email),
   index idx_users_name (name),
-  index idx_users_friend_code (friend_code),
+  index idx_users_user_code (user_code),
+  index idx_email_validated (email_validated),
 
   -- Foreign Keys
   constraint fk_user_privacy_settings_id
@@ -136,7 +138,7 @@ charset=utf8mb4;
 -- 
 
 create table sessions (
-  id varchar(255) not null,
+  id varchar(255) not null collate utf8mb4_bin,
   user_id bigint unsigned not null,
   expiration timestamp not null,
 
@@ -351,7 +353,6 @@ insert into user_privacy_settings
   discoverable_by_email,
   discoverable_by_phone,
   discoverable_by_name,
-  discoverable_by_friend_code,
   email_privacy,
   phone_privacy,
   location_privacy,
@@ -363,7 +364,6 @@ select
   discoverable_by_email.i,
   discoverable_by_phone.i,
   discoverable_by_name.i,
-  discoverable_by_friend_code.i,
   email_privacy.i,
   phone_privacy.i,
   location_privacy.i,
@@ -373,7 +373,6 @@ select
 from       (select 0 as i union select 1 as i)                     discoverable_by_email
 cross join (select 0 as i union select 1 as i)                     discoverable_by_phone
 cross join (select 0 as i union select 1 as i)                     discoverable_by_name
-cross join (select 0 as i union select 1 as i)                     discoverable_by_friend_code
 cross join (select 0 as i union select 1 as i union select 2 as i) email_privacy
 cross join (select 0 as i union select 1 as i union select 2 as i) phone_privacy
 cross join (select 0 as i union select 1 as i union select 2 as i) location_privacy

@@ -5,7 +5,7 @@ export const privacySettingsTable = Object.freeze({
 		id: 'id',
 		discoverableByEmail: 'discoverable_by_email',
 		discoverableByName: 'discoverable_by_name',
-		discoverableByFriendCode: 'discoverable_by_friend_code',
+		discoverableByPhone: 'discoverable_by_phone',
 		emailPrivacy: 'email_privacy',
 		phonePrivacy: 'phone_privacy',
 		locationPrivacy: 'location_privacy',

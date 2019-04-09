@@ -8,7 +8,7 @@ export const usersTable = Object.freeze({
 		phone: 'phone',
 		location: 'location',
 		birthday: 'birthday',
-		friendCode: 'friend_code',
+		userCode: 'user_code',
 		active: 'active',
 		emailValidated: 'email_validated',
 		containsExplicitContent: 'contains_explicit_content',
