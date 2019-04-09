@@ -1,6 +1,6 @@
 {
   "name": "@viva-eng/viva-database",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Definitions of Viva database and APIs for interacting with it",
   "main": "build/index.js",
   "scripts": {
