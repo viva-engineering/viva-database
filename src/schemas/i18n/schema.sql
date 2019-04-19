@@ -48,6 +48,7 @@ charset=utf8mb4;
 -- 
 
 create table i18n_labels (
+  id int unsigned not null auto_increment,
   code varchar(255) not null,
   component_code varchar(255) not null,
   description varchar(255) not null,
@@ -57,7 +58,7 @@ create table i18n_labels (
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
-  primary key (code, component_code),
+  primary key (id),
 
   -- Foreign Keys
   constraint fk_i18n_labels_component_code
@@ -72,8 +73,7 @@ charset=utf8mb4;
 -- 
 
 create table i18n_translations (
-  component_code varchar(255) not null,
-  label_code varchar(255) not null,
+  label_id int unsigned not null,
   language_code varchar(255) not null,
   label_text text not null,
 
@@ -82,11 +82,11 @@ create table i18n_translations (
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
-  primary key (component_code, label_code, language_code),
+  primary key (label_id, language_code),
 
   -- Foreign Keys
   constraint fk_i18n_translations_label
-    foreign key (label_code, component_code) references i18n_labels (code, component),
+    foreign key (label_id) references i18n_labels (id),
   constraint fk_i18n_translations_language_code
     foreign key (language_code) references i18n_languages (code)
 )

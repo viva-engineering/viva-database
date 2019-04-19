@@ -120,7 +120,7 @@ create table users (
   constraint fk_user_privacy_settings_id
     foreign key (privacy_settings_id) references user_privacy_settings (id),
   constraint fk_user_user_role_id
-    foreign key (user_role_id) reference user_roles (id)
+    foreign key (user_role_id) references user_roles (id)
 )
 engine=InnoDB,
 charset=utf8mb4;
@@ -194,7 +194,7 @@ create table moderator_notes (
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
-  primary key id,
+  primary key (id),
   index idx_moderator_notes_user_id (user_id),
 
   -- Foreign Keys
@@ -257,7 +257,7 @@ create table user_applications (
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
-  primary key (user_id, application_id),
+  primary key (id),
   index idx_user_applications_user_id_application_id (user_id, application_id),
 
   -- Foreign Keys
