@@ -1,21 +1,19 @@
 
 import { DatabasePool } from '@viva-eng/database';
-import { credentialsTable } from './tables/credentials';
-import { friendsTable } from './tables/friends';
-import { sessionsTable } from './tables/sessions';
-import { usersTable } from './tables/users';
-import { privacySettingsTable } from './tables/privacy-settings';
+import { i18nSchema } from './schemas/i18n';
+import { postsSchema } from './schemas/posts';
+import { usersSchema } from './schemas/users';
+// import { notificationsSchema } from './schemas/notifications';
 
 export { SelectQuery, WriteQuery } from './queries';
 
-export { Bit, PrivacyFlag } from './types';
+export { Bit, PrivacyFlag, VisibilityFlag } from './types';
 
-export const tables = {
-	credentials: credentialsTable,
-	friends: friendsTable,
-	sessions: sessionsTable,
-	users: usersTable,
-	privacySettings: privacySettingsTable
+export const schemas = {
+	i18n: i18nSchema,
+	posts: postsSchema,
+	users: usersSchema,
+	// notifications: notificationsSchema
 };
 
 export let db: DatabasePool;
