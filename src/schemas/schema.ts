@@ -21,6 +21,6 @@ export class DatabaseTable<C extends ColumnList<any>> {
 	) { }
 }
 
-export type Record<T, E> = E & {
-	[K in keyof T]: T[K];
+export type Record<T, K extends keyof T, E> = E & {
+	[P in K]: T[P];
 }
