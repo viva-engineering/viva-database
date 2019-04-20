@@ -6,7 +6,7 @@ import { usersSchema } from './schemas/users';
 // import { notificationsSchema } from './schemas/notifications';
 
 export { SelectQuery, WriteQuery } from './queries';
-export { Bit, PrivacyFlag, VisibilityFlag, DateString, TimestampString } from './types';
+export { Bit, PrivacyFlag, VisibilityFlag, DateString, TimestampString, UserRole } from './types';
 export { TableList, ColumnList, DatabaseSchema, DatabaseTable, Record } from './schemas/schema';
 export {
 	I18nComponentsColumns,

@@ -21,3 +21,14 @@ export const enum VisibilityFlag {
 	NotVisible = 0,
 	Visible = 1
 }
+
+/**
+ * Contains all of the special user roles with elevated permissions that
+ * can be assigned to a user
+ */
+export enum UserRole {
+	Admin = 'ADMIN',
+	SuperModerator = 'SUPER_MODERATOR',
+	Moderator = 'MODERATOR',
+	Localization = 'LOCALIZATION'
+}
