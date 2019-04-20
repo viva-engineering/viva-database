@@ -1,6 +1,7 @@
 
 import { db } from './index';
 import { PoolConnection } from 'mysql';
+import { Record } from './schemas/schema';
 import {
 	WriteQuery as BaseWriteQuery,
 	WriteQueryResult,

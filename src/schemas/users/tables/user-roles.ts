@@ -1,7 +1,15 @@
 
-import { DatabaseTable } from '../../schema';
+import { Bit, TimestampString } from '../../../types';
+import { DatabaseTable, ColumnList } from '../../schema';
 
-export const userRoles = new DatabaseTable('user_roles', {
+export interface UserRolesColumns {
+	id: number;
+	description: UserRole;
+	created_timestamp: TimestampString;
+	updated_timestamp: TimestampString;
+}
+
+export const userRoles = new DatabaseTable('user_roles', <ColumnList<UserRolesColumns>> {
 	id: 'id' as const,
 	description: 'description' as const,
 	createdTimestamp: 'created_timestamp' as const,
@@ -12,7 +20,7 @@ export const userRoles = new DatabaseTable('user_roles', {
  * Contains all of the special user roles with elevated permissions that
  * can be assigned to a user
  */
-export enum UserRoles {
+export enum UserRole {
 	Admin = 'ADMIN',
 	SuperModerator = 'SUPER_MODERATOR',
 	Moderator = 'MODERATOR',

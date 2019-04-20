@@ -1,4 +1,11 @@
 
+// Hopefully typescript eventually supports pattern types and these will become useful.
+// For now, they just provide a little extra info when you actually read the type data
+export type DateString = string;
+export type TimestampString = string;
+export type PhoneNumberString = string;
+export type EmailString = string;
+
 export const enum Bit {
 	False = 0,
 	True = 1

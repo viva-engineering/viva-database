@@ -1,7 +1,17 @@
 
-import { DatabaseTable } from '../../schema';
+import { TimestampString } from '../../../types';
+import { DatabaseTable, ColumnList } from '../../schema';
 
-export const moderatorNotes = new DatabaseTable('moderator_notes', {
+export interface ModeratorNotesColumns {
+	id: number;
+	user_id: number;
+	note: string;
+	added_by: number;
+	created_timestamp: TimestampString;
+	updated_timestamp: TimestampString;
+}
+
+export const moderatorNotes = new DatabaseTable('moderator_notes', <ColumnList<ModeratorNotesColumns>> {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	note: 'note' as const,

@@ -1,7 +1,19 @@
 
-import { DatabaseTable } from '../../schema';
+import { Bit, TimestampString } from '../../../types';
+import { DatabaseTable, ColumnList } from '../../schema';
 
-export const applications = new DatabaseTable('applications', {
+export interface ApplicationsColumns {
+	id: number;
+	name: string;
+	secret_key_digest: string;
+	owner_user_id: number;
+	active: Bit;
+	approved: Bit;
+	created_timestamp: TimestampString;
+	updated_timestamp: TimestampString;
+}
+
+export const applications = new DatabaseTable('applications', <ColumnList<ApplicationsColumns>> {
 	id: 'id' as const,
 	name: 'name' as const,
 	secretKeyDigest: 'secret_key_digest' as const,

@@ -1,7 +1,18 @@
 
-import { DatabaseTable } from '../../schema';
+import { Bit, TimestampString } from '../../../types';
+import { DatabaseTable, ColumnList } from '../../schema';
 
-export const pages = new DatabaseTable('pages', {
+export interface PagesColumns {
+	id: number;
+	owner_user_id: number;
+	explicit_content: Bit;
+	lock_explicit_content: Bit;
+	is_private: Bit;
+	created_timestamp: TimestampString;
+	updated_timestamp: TimestampString;
+}
+
+export const pages = new DatabaseTable('pages', <ColumnList<PagesColumns>> {
 	id: 'id' as const,
 	ownerUserId: 'owner_user_id' as const,
 	explicitContent: 'explicit_content' as const,
