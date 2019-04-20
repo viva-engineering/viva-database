@@ -11,7 +11,7 @@ export interface PostPrivacyRulesColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const postPrivacyRules = new DatabaseTable('post_privacy_rules', <ColumnList<PostPrivacyRulesColumns>> {
+export const postPrivacyRules = new DatabaseTable('post_privacy_rules', {
 	postPrivacySettingsId: 'post_privacy_settings_id' as const,
 	appliesToUserId: 'applies_to_user_id' as const,
 	appliesToGroupId: 'applies_to_group_id' as const,

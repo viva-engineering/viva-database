@@ -15,7 +15,7 @@ export interface PostsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const posts = new DatabaseTable('posts', <ColumnList<PostsColumns>> {
+export const posts = new DatabaseTable('posts', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	pageId: 'page_id' as const,

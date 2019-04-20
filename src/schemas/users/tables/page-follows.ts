@@ -10,7 +10,7 @@ export interface PageFollowsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const pageFollows = new DatabaseTable('page_follows', <ColumnList<PageFollowsColumns>> {
+export const pageFollows = new DatabaseTable('page_follows', {
 	pageId: 'page_id' as const,
 	userId: 'user_id' as const,
 	approved: 'approved' as const,

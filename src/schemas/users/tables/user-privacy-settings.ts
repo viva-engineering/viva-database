@@ -17,7 +17,7 @@ export interface UserPrivacySettingsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const userPrivacySettings = new DatabaseTable('user_privacy_settings', <ColumnList<UserPrivacySettingsColumns>> {
+export const userPrivacySettings = new DatabaseTable('user_privacy_settings', {
 	id: 'id' as const,
 	discoverableByEmail: 'discoverable_by_email' as const,
 	discoverableByName: 'discoverable_by_name' as const,

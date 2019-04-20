@@ -13,7 +13,7 @@ export interface ApplicationsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const applications = new DatabaseTable('applications', <ColumnList<ApplicationsColumns>> {
+export const applications = new DatabaseTable('applications', {
 	id: 'id' as const,
 	name: 'name' as const,
 	secretKeyDigest: 'secret_key_digest' as const,

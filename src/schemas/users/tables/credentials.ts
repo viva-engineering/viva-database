@@ -14,7 +14,7 @@ export interface CredentialsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const credentials = new DatabaseTable('credentials', <ColumnList<CredentialsColumns>> {
+export const credentials = new DatabaseTable('credentials', {
 	userId: 'user_id' as const,
 	passwordDigest: 'password_digest' as const,
 	isActive: 'is_active' as const,

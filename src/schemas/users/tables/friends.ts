@@ -9,7 +9,7 @@ export interface FriendsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const friends = new DatabaseTable('friends', <ColumnList<FriendsColumns>> {
+export const friends = new DatabaseTable('friends', {
 	userA: 'user_id_a' as const,
 	userB: 'user_id_b' as const,
 	createdTimestamp: 'created_timestamp' as const,

@@ -11,7 +11,7 @@ export interface SessionsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const sessions = new DatabaseTable('sessions', <ColumnList<SessionsColumns>> {
+export const sessions = new DatabaseTable('sessions', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	expiration: 'expiration' as const,

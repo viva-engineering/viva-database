@@ -22,7 +22,7 @@ export interface UsersColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const users = new DatabaseTable('users', <ColumnList<UsersColumns>> {
+export const users = new DatabaseTable('users', {
 	id: 'id' as const,
 	email: 'email' as const,
 	name: 'name' as const,

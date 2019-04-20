@@ -10,7 +10,7 @@ export interface FlaggedPostCommentsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const flaggedPostComments = new DatabaseTable('flagged_post_comments', <ColumnList<FlaggedPostCommentsColumns>> {
+export const flaggedPostComments = new DatabaseTable('flagged_post_comments', {
 	postCommentId: 'post_comment_id' as const,
 	userId: 'user_id' as const,
 	reason: 'reason' as const,

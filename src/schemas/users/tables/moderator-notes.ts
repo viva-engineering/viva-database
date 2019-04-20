@@ -11,7 +11,7 @@ export interface ModeratorNotesColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const moderatorNotes = new DatabaseTable('moderator_notes', <ColumnList<ModeratorNotesColumns>> {
+export const moderatorNotes = new DatabaseTable('moderator_notes', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	note: 'note' as const,

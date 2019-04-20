@@ -10,7 +10,7 @@ export interface UserGroupsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const userGroups = new DatabaseTable('user_groups', <ColumnList<UserGroupsColumns>> {
+export const userGroups = new DatabaseTable('user_groups', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	name: 'name' as const,

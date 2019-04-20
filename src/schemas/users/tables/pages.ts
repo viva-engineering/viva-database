@@ -12,7 +12,7 @@ export interface PagesColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const pages = new DatabaseTable('pages', <ColumnList<PagesColumns>> {
+export const pages = new DatabaseTable('pages', {
 	id: 'id' as const,
 	ownerUserId: 'owner_user_id' as const,
 	explicitContent: 'explicit_content' as const,

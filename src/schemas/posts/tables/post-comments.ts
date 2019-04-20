@@ -15,7 +15,7 @@ export interface PostCommentsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const postComments = new DatabaseTable('post_comments', <ColumnList<PostCommentsColumns>> {
+export const postComments = new DatabaseTable('post_comments', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	postId: 'post_id' as const,

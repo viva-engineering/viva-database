@@ -10,7 +10,7 @@ export interface PostPrivacySettingsColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const postPrivacySettings = new DatabaseTable('post_privacy_settings', <ColumnList<PostPrivacySettingsColumns>> {
+export const postPrivacySettings = new DatabaseTable('post_privacy_settings', {
 	id: 'id' as const,
 	userId: 'user_id' as const,
 	template: 'template' as const,

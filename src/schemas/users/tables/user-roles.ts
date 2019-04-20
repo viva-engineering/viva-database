@@ -9,7 +9,7 @@ export interface UserRolesColumns {
 	updated_timestamp: TimestampString;
 }
 
-export const userRoles = new DatabaseTable('user_roles', <ColumnList<UserRolesColumns>> {
+export const userRoles = new DatabaseTable('user_roles', {
 	id: 'id' as const,
 	description: 'description' as const,
 	createdTimestamp: 'created_timestamp' as const,
