@@ -12,6 +12,10 @@ export class DatabaseSchema<T extends TableList<C>, C extends ColumnList<any>> {
 		public readonly name: string,
 		public readonly tables: T
 	) { }
+
+	toString() {
+		return this.name;
+	}
 }
 
 export class DatabaseTable<C extends ColumnList<any>> {
@@ -19,6 +23,10 @@ export class DatabaseTable<C extends ColumnList<any>> {
 		public readonly name: string,
 		public readonly columns: C
 	) { }
+
+	toString() {
+		return this.name;
+	}
 }
 
 export type Record<T, K extends keyof T, E> = E & {

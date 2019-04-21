@@ -26,6 +26,6 @@
     "typescript": "^3.3.4000"
   },
   "dependencies": {
-    "@viva-eng/database": "^1.0.13"
+    "@viva-eng/database": "^1.0.14"
   }
 }
