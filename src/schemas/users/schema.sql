@@ -456,10 +456,11 @@ charset=utf8mb4;
 insert into user_roles
   (id, description)
 values
-  (1, 'ADMIN'),
-  (2, 'SUPER_MODERATOR'),
-  (3, 'MODERATOR'),
-  (4, 'LOCALIZATION');
+  (1, 'SYSTEM'),
+  (2, 'ADMIN'),
+  (3, 'SUPER_MODERATOR'),
+  (4, 'MODERATOR'),
+  (5, 'LOCALIZATION');
 
 
 -- 

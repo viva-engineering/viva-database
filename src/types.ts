@@ -27,6 +27,7 @@ export const enum VisibilityFlag {
  * can be assigned to a user
  */
 export enum UserRole {
+	System = 'SYSTEM',
 	Admin = 'ADMIN',
 	SuperModerator = 'SUPER_MODERATOR',
 	Moderator = 'MODERATOR',
