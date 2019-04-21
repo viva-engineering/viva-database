@@ -3,7 +3,7 @@ import { Bit, TimestampString } from '../../../types';
 import { DatabaseTable, ColumnList } from '../../schema';
 
 export interface SessionsColumns {
-	id: number;
+	id: string;
 	user_id: number;
 	expiration: TimestampString;
 	application_id: number;
