@@ -309,22 +309,23 @@ charset=utf8mb4;
 -- 
 
 create table friends (
-  user_id_a bigint unsigned not null,
-  user_id_b bigint unsigned not null,
+  requesting_user_id bigint unsigned not null,
+  requested_user_id bigint unsigned not null,
+  accepted tinyint(1) not null default 0,
 
   -- Record metadata
   created_timestamp timestamp not null default now(),
   updated_timestamp timestamp not null default now() on update now(),
 
   -- Keys/Indexes
-  primary key (user_id_a, user_id_b),
-  index idx_friends_user_id_b (user_id_b),
+  primary key (requesting_user_id, requested_user_id),
+  index idx_friends_requested_user_id (requested_user_id),
 
   -- Foreign Keys
-  constraint fk_friends_user_id_a
-    foreign key (user_id_a) references users (id),
-  constraint fk_friends_user_id_b
-    foreign key (user_id_b) references users (id)
+  constraint fk_friends_requesting_user_id
+    foreign key (requesting_user_id) references users (id),
+  constraint fk_friends_requested_user_id
+    foreign key (requested_user_id) references users (id)
 )
 engine=InnoDB,
 charset=utf8mb4;
